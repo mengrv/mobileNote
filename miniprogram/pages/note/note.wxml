@@ -1,0 +1,51 @@
+<!--miniprogram/pages/note/note.wxml-->
+<view class="banner-view">
+  <image class="banner-bg" mode="aspectFill" src="cloud://test-266191.7465-test-266191-1257951538/images/banner-bg.png">
+  </image>
+  <view class="banner">
+    <text class="title">当月账单</text>
+  <view class="total">
+    <text>净收入</text>
+    <text>{{totalData.income-totalData.expend}}元</text>
+  </view>
+  <view class="count">
+    <view>
+      <text>支出</text>
+      <text>{{totalData.expend}}元</text>
+    </view>
+    <view>
+      <text>收入</text>
+      <text>{{totalData.income}}元</text>
+    </view>
+  </view>
+  </view>
+</view>
+<scroll-view scroll-y scroll-anchoring class="month-list">
+  <block wx:for="{{bills}}" wx:key="index" wx:for-item="billList">
+    <view class="daily-total">
+      <text>{{billList.dateString}}</text>
+      <view>
+        <text>{{bills.income}}</text>
+        <text>{{bills.expend}}</text>
+      </view>
+    </view>
+    <view class="note-list">
+      <view wx:for="{{billList.list}}"  data-bill="{{bill}}" bindtap="onBillTab"  wx:for-item="bill" wx:key="_id" class="note-list-item flex main-between cross-center">
+        <view class="flex cross-center">
+          <image src="../../images/billTypes/{{bill.icon||'13'}}.svg"></image>
+          <view class="flex">
+            <text class="type-name">{{bill.typeName}}</text>
+            <text wx:if="{{bill.remarks}}" class="remark">{{bill.remarks}}</text>
+          </view>
+        </view>
+        <view>
+          <text class="num {{bill.income?'income':''}}">{{bill.number}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</scroll-view>
+<view class="footer">writed by ruimeng</view>
+<view class="add">
+  <navigator hover-class="none" url="../addNote/addNote">＋</navigator>
+</view>

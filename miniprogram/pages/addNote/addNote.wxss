@@ -1,0 +1,34 @@
+/* miniprogram/pages/addNote/addNote.wxss */
+@import '../../style/flex.wxss';
+
+page {
+  background-color: #eee;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding-right: 4vw;
+}
+
+.card-list-item {
+  width: 28vw;
+  height: 100rpx;
+  background-color: #393e46;
+  border-radius: 10rpx;
+  line-height: 100rpx;
+  text-align: center;
+  margin-left: 4vw;
+  margin-top: 40rpx;
+  cursor: pointer;
+  background-size: 60rpx auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: white;
+}
+
+.date-picker {
+  border: 1px solid red;
+  height: 80rpx;
+  line-height: 80rpx;
+}
