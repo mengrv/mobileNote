@@ -2,33 +2,39 @@
 @import '../../style/flex.wxss';
 
 page {
-  background-color: #eee;
+  background-color: #f1f2f6;
 }
 
 .card-list {
   display: flex;
   flex-wrap: wrap;
-  padding-right: 4vw;
+  padding-right: 6vw;
 }
 
 .card-list-item {
-  width: 28vw;
-  height: 100rpx;
-  background-color: #393e46;
+  width: 41vw;
+  height: 120rpx;
+  background-color: #57606f;
   border-radius: 10rpx;
-  line-height: 100rpx;
-  text-align: center;
-  margin-left: 4vw;
+  text-align: left;
+  margin-left: 6vw;
   margin-top: 40rpx;
   cursor: pointer;
-  background-size: 60rpx auto;
-  background-repeat: no-repeat;
-  background-position: center center;
+  color: white;
+  font-size: 32rpx;
+}
+
+.card-list-item image {
+  height: 60rpx;
+  width: 60rpx;
+  padding: 0 20rpx 0 40rpx;
+}
+.primary-btn {
+  background-color: #747d8c;
   color: white;
 }
 
-.date-picker {
-  border: 1px solid red;
-  height: 80rpx;
-  line-height: 80rpx;
+.primary-btn-1 {
+  background-color: #a4b0be;
+  color: white;
 }

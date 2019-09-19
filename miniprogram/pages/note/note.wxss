@@ -2,21 +2,25 @@
 @import "../../style/flex.wxss";
 
 page {
-  color: #393e46;
-  background-color: #eee;
+  color: #2f3542;
   display: flex;
   flex-direction: column;
+  background-color: #f1f2f6;
   height: 100%;
+}
+
+view, text {
+  line-height: 1;
 }
 
 .banner-view {
   position: relative;
-  background-color: #222831; 
-  height: 400rpx;
+  background-color: #2f3542;
+  height: 500rpx;
   flex-grow: 0;
   flex-shrink: 0;
   overflow: hidden;
-   padding: 0 40rpx;
+  padding: 0 40rpx;
 }
 
 .banner {
@@ -26,10 +30,14 @@ page {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   left: 0;
   top: 0;
   position: absolute;
   z-index: 2;
+  color: #fff;
+  padding: 80rpx;
+  box-sizing: border-box;
 }
 
 .banner-bg {
@@ -41,26 +49,37 @@ page {
   z-index: 1;
 }
 
-
 .title {
-  color: #eee;
   font-size: 48rpx;
-  padding-bottom: 40rpx;
+  padding-bottom: 80rpx;
+  position: absolute;
+  left: 80rpx;
+  top: 80rpx;
 }
 
 .count {
-  color: #eee;
   display: flex;
-  width: 80%;
+  width: 100%;
   justify-content: space-between;
 }
 
 .total {
-  color: #eee;
   display: flex;
-  flex-direction: column;
-  padding-bottom: 24rpx;
-  font-size: 36rpx;
+  align-items: center;
+  padding-bottom: 48rpx;
+  font-size: 42rpx;
+}
+
+.banner .total .num {
+  font-size: 64rpx;
+}
+
+.banner .num {
+  font-size: 48rpx;
+}
+
+.ml-20 {
+  margin-left: 20rpx;
 }
 
 .month-list {
@@ -72,23 +91,41 @@ page {
 .daily-total {
   display: flex;
   justify-content: space-between;
-  line-height: 60rpx;
-  padding: 0 40rpx;
+  align-items: center;
+  padding: 40rpx;
+  border-bottom: 1rpx solid #f1f2f6;
+  font-size: 36rpx;
+  margin-left: -40rpx;
+}
+
+.daily-total .income, .daily-total .expend {
+  font-size: 36rpx;
+  text-align: right;
+}
+
+.income {
+  color: #ff4757;
+}
+
+.expend {
+  color: #1e90ff;
 }
 
 .note-list {
   background-color: white;
   padding-left: 40rpx;
+  margin-top: 40rpx;
 }
+
 .note-list-item {
-  padding: 20rpx 40rpx 20rpx 0;
-  border-bottom:  1rpx solid #eee;
+  padding: 40rpx 40rpx 40rpx 0;
+  border-bottom: 1rpx solid #f1f2f6;
 }
 
 .note-list-item image {
-  width: 40rpx;
-  height: 40rpx;
-  margin-right: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 40rpx;
 }
 
 .note-list-item:last-child {
@@ -96,28 +133,24 @@ page {
 }
 
 .note-list-item .type-name {
-  font-size: 28rpx;
+  font-size: 36rpx;
   color: #222831;
 }
 
 .note-list-item .remark {
-  color: #393e46;
-  font-size: 20rpx;
-  vertical-align: bottom;
-  margin-left: 20rpx;
-}
-
-.note-list-item .icon {
-  margin-right: 20rpx;
+  color: #57606f;
+  font-size: 28rpx;
+  margin-top: 16rpx;
+  height: 28rpx;
 }
 
 .note-list-item .num {
-  color: #00adb5;
+  color: #1e90ff;
   font-size: 32rpx;
 }
 
 .note-list-item .num.income {
-  color: red;
+  color: #ff4757;
 }
 
 .add navigator {

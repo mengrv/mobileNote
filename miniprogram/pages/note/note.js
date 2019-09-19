@@ -108,17 +108,17 @@ Page({
           let _bills = bills.find(n => n.date === t.billDate);
           if (_bills) {
             if(t.income) {
-              _bills.income = _bills.income + t.number
+              _bills.income = _bills.income + Number(t.number)
             } else {
-              _bills.expend = _bills.expend + t.number
+              _bills.expend = _bills.expend + Number(t.number)
             }
             _bills.list.push(t);
           } else {
             bills.push({
               date: t.billDate,
               dateString: this.getDateString(t.billDate),
-              income: t.income ? t.number : 0,
-              expend: t.income ? t.number : 0,
+              income: t.income ? Number(t.number) : 0,
+              expend: t.income ? 0 : Number(t.number),
               list: [t]
             })
           }

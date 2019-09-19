@@ -4,43 +4,38 @@
   </image>
   <view class="banner">
     <text class="title">当月账单</text>
-  <view class="total">
-    <text>净收入</text>
-    <text>{{totalData.income-totalData.expend}}元</text>
-  </view>
-  <view class="count">
-    <view>
-      <text>支出</text>
-      <text>{{totalData.expend}}元</text>
+    <view class="total">
+      <text>净收入</text>
+      <text class="ml-20 num {{totalData.income>=totalData.expend?'income':'expend'}}">{{totalData.income-totalData.expend}}</text>
     </view>
-    <view>
-      <text>收入</text>
-      <text>{{totalData.income}}元</text>
+    <view class="count">
+      <view class="flex cross-center flex-item-1">
+        <text>支出</text>
+        <text class="ml-20 num expend">{{totalData.expend}}</text>
+      </view>
+      <view class="flex cross-center flex-item-1 main-end">
+        <text>收入</text>
+        <text class="ml-20 num income">{{totalData.income}}</text>
+      </view>
     </view>
-  </view>
   </view>
 </view>
 <scroll-view scroll-y scroll-anchoring class="month-list">
   <block wx:for="{{bills}}" wx:key="index" wx:for-item="billList">
-    <view class="daily-total">
-      <text>{{billList.dateString}}</text>
-      <view>
-        <text>{{bills.income}}</text>
-        <text>{{bills.expend}}</text>
-      </view>
-    </view>
     <view class="note-list">
-      <view wx:for="{{billList.list}}"  data-bill="{{bill}}" bindtap="onBillTab"  wx:for-item="bill" wx:key="_id" class="note-list-item flex main-between cross-center">
+      <view class="daily-total">
+        <text>{{billList.dateString}}</text>
+        <text class="{{billList.income>=billList.expend?'income':'expend'}}">{{billList.income-billList.expend}}</text>
+      </view>
+      <view wx:for="{{billList.list}}" data-bill="{{bill}}" bindtap="onBillTab" wx:for-item="bill" wx:key="_id" class="note-list-item flex main-between cross-center">
         <view class="flex cross-center">
           <image src="../../images/billTypes/{{bill.icon||'13'}}.svg"></image>
-          <view class="flex">
+          <view class="flex dir-column">
             <text class="type-name">{{bill.typeName}}</text>
-            <text wx:if="{{bill.remarks}}" class="remark">{{bill.remarks}}</text>
+            <text class="remark">{{bill.remarks||bill.typeName}}</text>
           </view>
         </view>
-        <view>
-          <text class="num {{bill.income?'income':''}}">{{bill.number}}</text>
-        </view>
+        <text class="num {{bill.income?'income':''}}">{{bill.number}}</text>
       </view>
     </view>
   </block>
