@@ -86,7 +86,9 @@ Page({
         number: $.sum('$number')
       })
       .end().then(res => {
-        console.log('[查询数据长度]', res.list.length);
+        if(!res.list.length) {
+          return console.log('[查询结果]', res);
+        }
         if (income) {
           this.setData({
             'totalData.income': res.list[0].number
