@@ -16,7 +16,7 @@ view, text {
 .banner-view {
   position: relative;
   background-color: #2f3542;
-  height: 500rpx;
+  height: 400rpx;
   flex-grow: 0;
   flex-shrink: 0;
   overflow: hidden;
@@ -54,7 +54,7 @@ view, text {
   padding-bottom: 80rpx;
   position: absolute;
   left: 80rpx;
-  top: 80rpx;
+  top: 40rpx;
 }
 
 .count {
@@ -86,6 +86,7 @@ view, text {
   flex-grow: 1;
   flex-shrink: 1;
   overflow: scroll;
+  padding-top: 40rpx;
 }
 
 .daily-total {
@@ -93,7 +94,8 @@ view, text {
   justify-content: space-between;
   align-items: center;
   padding: 40rpx;
-  border-bottom: 1rpx solid #f1f2f6;
+  border-top: 1px solid #f1f2f6;
+  border-bottom: 1px solid #f1f2f6;
   font-size: 36rpx;
   margin-left: -40rpx;
 }
@@ -114,7 +116,6 @@ view, text {
 .note-list {
   background-color: white;
   padding-left: 40rpx;
-  margin-top: 40rpx;
 }
 
 .note-list-item {
@@ -158,14 +159,13 @@ view, text {
   display: block;
   bottom: 30rpx;
   right: 30rpx;
-  background-color: #393e46;
+  background-color: #57606f;
   color: white;
   width: 80rpx;
   height: 80rpx;
   border-radius: 100rpx;
   text-align: center;
   line-height: 80rpx;
-  opacity: 0.8;
   font-size: 48rpx;
   cursor: pointer;
 }
@@ -177,4 +177,10 @@ view, text {
   font-size: 20rpx;
   color: #393e46;
   line-height: 80rpx;
+}
+
+.null-data image {
+  margin-top: 50rpx;
+  width: 340rpx;
+  height: 340rpx;
 }

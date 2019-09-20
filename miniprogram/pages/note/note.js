@@ -55,29 +55,38 @@ Page({
   onQueryTotal(income = false) {
     const db = wx.cloud.database();
     const $ = db.command.aggregate;
+    const _ = db.command;
     const {
       start_date,
       end_date
     } = this.getMonthDate();
+    console.log('[查询统计数据]', '[start_date]', start_date, '[end_date]', end_date);
     db.collection('bills').aggregate()
-      .match(
-        $.and([{
-            income: income
-          },
-          {
-            billDate: {
-              $gte: start_date,
-              $lt: end_date
-            }
-          }
-        ])
-      )
+      .match({
+        income: income,
+        billDate: _.gte(start_date)
+      })
+      .match({
+        billDate: _.lt(end_date)
+      })
+      // .match(
+      //   $.and([{
+      //       income: income
+      //     },
+      //     {
+      //       billDate: {
+      //         $gte: start_date,
+      //         $lt: end_date
+      //       }
+      //     }
+      //   ])
+      // )
       .group({
         _id: null,
         number: $.sum('$number')
       })
       .end().then(res => {
-        console.log(res);
+        console.log('[查询数据长度]', res.list.length);
         if (income) {
           this.setData({
             'totalData.income': res.list[0].number
@@ -87,6 +96,8 @@ Page({
             'totalData.expend': res.list[0].number
           })
         }
+      }).catch(err=>{
+        console.error('[查询统计数据错误]', err)
       })
   },
 

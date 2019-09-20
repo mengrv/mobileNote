@@ -52,19 +52,22 @@ Page({
       success: res => {
         wx.showToast({
           title: '新增记录成功',
-        })
-        if (back) {
-          wx.navigateBack();
-        } else {
-          this.setData({
-            formData: {
-              remarks: '',
-              number: null,
-              billDate: '',
-              income: false
+          success: ()=>{
+            if (back) {
+              wx.navigateBack();
+            } else {
+              this.setData({
+                formData: {
+                  remarks: '',
+                  number: null,
+                  billDate: '',
+                  income: false
+                },
+                selectedType: null
+              })
             }
-          })
-        }
+          }
+        })
       },
       fail: err => {
         wx.showToast({
@@ -91,8 +94,10 @@ Page({
       success: res => {
         wx.showToast({
           title: '编辑记录成功',
+          success: ()=>{
+            wx.navigateBack()
+          }
         })
-        wx.navigateBack()
       },
       fail: err => {
         icon: 'none',

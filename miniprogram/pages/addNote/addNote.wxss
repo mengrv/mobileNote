@@ -29,12 +29,3 @@ page {
   width: 60rpx;
   padding: 0 20rpx 0 40rpx;
 }
-.primary-btn {
-  background-color: #747d8c;
-  color: white;
-}
-
-.primary-btn-1 {
-  background-color: #a4b0be;
-  color: white;
-}

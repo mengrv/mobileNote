@@ -13,7 +13,4 @@
 
 ## 色值参考
 
-1. 黑色 #222831
-2. 灰色 #393e46
-3. 蓝色 #00adb5
-4. 淡灰色 #eeeeee
+[https://flatuicolors.com/palette/cn](https://flatuicolors.com/palette/cn)

@@ -21,11 +21,12 @@
   </view>
 </view>
 <scroll-view scroll-y scroll-anchoring class="month-list">
-  <block wx:for="{{bills}}" wx:key="index" wx:for-item="billList">
-    <view class="note-list">
+  <block wx:if="{{bills.length}}">
+    <view class="note-list" wx:for="{{bills}}" wx:key="index" wx:for-item="billList">
       <view class="daily-total">
         <text>{{billList.dateString}}</text>
-        <text class="{{billList.income>=billList.expend?'income':'expend'}}">{{billList.income-billList.expend}}</text>
+        <text wx:if="{{billList.income>=billList.expend}}" class="income">{{billList.income-billList.expend}}</text>
+        <text wx:else class="expend">{{billList.expend-billList.income}}</text>
       </view>
       <view wx:for="{{billList.list}}" data-bill="{{bill}}" bindtap="onBillTab" wx:for-item="bill" wx:key="_id" class="note-list-item flex main-between cross-center">
         <view class="flex cross-center">
@@ -39,8 +40,14 @@
       </view>
     </view>
   </block>
+  <view wx:else class="flex dir-column cross-center null-data">
+    <image src="../../images/list-null.svg"></image>
+    <navigator hover-class="none" url="../addNote/addNote">
+      <button class="primary-btn-1">立即添加</button>
+    </navigator>
+  </view>
 </scroll-view>
-<view class="footer">writed by ruimeng</view>
+<view class="footer">聚沙成塔</view>
 <view class="add">
   <navigator hover-class="none" url="../addNote/addNote">＋</navigator>
 </view>
