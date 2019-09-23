@@ -1,5 +1,5 @@
 // miniprogram/pages/addNote/addNote.js
-
+import BillApi from "../../api/bills.api.js"
 const app = getApp()
 
 Page({
@@ -12,12 +12,16 @@ Page({
     selectedType: null,
     error: '',
     billid: null,
+    showTypes: true,
+    numberFocus: true,
 
     formData: {
       remarks: '',
       number: null,
       billDate: '',
-      income: false
+      income: false,
+      typeName: '',
+      icon: ''
     },
 
     rules: [{
@@ -45,6 +49,25 @@ Page({
     ]
   },
 
+  numberBindFocus(){
+    this.setData({
+      numberFocus: true
+    })
+  },
+
+  numberBindblur(){
+    this.setData({
+      numberFocus: false
+    })
+  },
+
+  /**
+   * 删除订单
+   */
+  deleteBill() {
+    BillApi.deleteBill(this.data.billid).then(()=>wx.navigateBack());
+  },
+
   addOne(data, back) {
     const db = wx.cloud.database();
     db.collection('bills').add({
@@ -52,19 +75,15 @@ Page({
       success: res => {
         wx.showToast({
           title: '新增记录成功',
-          success: ()=>{
+          success: () => {
             if (back) {
               wx.navigateBack();
             } else {
               this.setData({
-                formData: {
-                  remarks: '',
-                  number: null,
-                  billDate: '',
-                  income: false
-                },
-                selectedType: null
+                'formData.remarks': null,
+                'formData.number': null,
               })
+              this.numberBindFocus();
             }
           }
         })
@@ -94,14 +113,14 @@ Page({
       success: res => {
         wx.showToast({
           title: '编辑记录成功',
-          success: ()=>{
+          success: () => {
             wx.navigateBack()
           }
         })
       },
       fail: err => {
         icon: 'none',
-          console.error('[数据库] [更新记录] 失败：', err)
+        console.error('[数据库] [更新记录] 失败：', err)
       }
     })
   },
@@ -123,8 +142,6 @@ Page({
           billDate: Date.parse(this.data.formData.billDate),
           number: Number(this.data.formData.number),
           createdTime: new Date(),
-          typeName: this.data.selectedType.name,
-          icon: this.data.selectedType.icon
         }, back);
       }
     })
@@ -181,15 +198,26 @@ Page({
 
   incomeChanged: function(event) {
     this.setData({
-      'formData.income': event.detail.value
+      'formData.income': event.detail.value === 'income'
     });
   },
 
+  showTypes(show = true) {
+    this.setData({
+      showTypes: show,
+    })
+  },
+
   chooseBill: function(event) {
-    this.initDate();
+    if (!this.data.formData.billDate) {
+      this.initDate();
+    }
     this.setData({
       selectedType: event.currentTarget.dataset.bill_type,
-      'formData.income': event.currentTarget.dataset.bill_type.income
+      showTypes: false,
+      'formData.income': event.currentTarget.dataset.bill_type.income,
+      'formData.typeName': event.currentTarget.dataset.bill_type.name,
+      'formData.icon': event.currentTarget.dataset.bill_type.icon
     });
   },
 
@@ -200,12 +228,15 @@ Page({
     this.onQuery();
     const eventChannel = this.getOpenerEventChannel();
     eventChannel.on('bill', (data) => {
+      this.showTypes(false);
       this.setData({
         billid: data._id,
         formData: {
           remarks: data.remarks,
           number: data.number,
-          income: data.income
+          income: data.income,
+          typeName: data.typeName,
+          icon: data.icon
         }
       })
       wx.nextTick(() => {

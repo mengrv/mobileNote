@@ -1,5 +1,5 @@
 <!--miniprogram/pages/addNote/addNote.wxml-->
-<view class="card-list" wx:if="{{!selectedType&&!billid}}">
+<view class="card-list" wx:if="{{showTypes}}">
   <view class="card-list-item flex cross-center main-center" data-bill_type="{{item}}" wx:for="{{typeList}}" wx:for-item="item" wx:key="_id" bindtap="chooseBill">
     <image src="../../images/billTypes/{{item.icon}}.svg"></image>
     <text class="flex-item-1">{{item.name}}</text>
@@ -7,31 +7,42 @@
 </view>
 <view wx:else>
   <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
-    <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-      <mp-cells>
-        <mp-cell title="{{formData.income?'收入':'支出'}}">
-          <switch slot="footer" data-field="income" checked="{{formData.income}}" name="income" bindchange="incomeChanged" />
-        </mp-cell>
-        <mp-cell title="产生日期" prop="billDate">
-          <picker mode="date" data-field="date" name="billDate" value="{{formData.billDate}}" bindchange="bindDateChange">
-            <view style="text-align:right" class="weui-input">{{formData.billDate}}</view>
-          </picker>
-        </mp-cell>
-        <mp-cell prop="number" title="产生金额">
-          <input bindinput="formInputChange" value="{{formData.number}}" data-field="number" slot="footer" type="digit" placeholder="不分正负" />
-        </mp-cell>
-        <mp-cell prop="remarks" title="备注">
-          <input bindinput="formInputChange" value="{{formData.remarks}}" data-field="remarks" slot="footer" placeholder="请输入备注" />
-        </mp-cell>
-      </mp-cells>
-    </mp-form>
-    <view class="weui-btn-area">
-      <block wx:if="{{billid}}">
-        <button class="weui-btn primary-btn" bindtap="submitForm">确定修改</button>
-      </block>
-      <block wx:else>
-        <button class="weui-btn primary-btn" bindtap="submitForm">确定</button>
-        <button class="weui-btn primary-btn-1" bindtap="addNextOne">再记一笔</button>
-      </block>
-    </view>
+  <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+    <mp-cells>
+      <mp-cell title="收支类型">
+        <text slot="footer" bindtap="showTypes">{{formData.typeName}}</text>
+      </mp-cell>
+      <mp-cell title="收入/支出">
+        <radio-group slot="footer" name="income" data-field="income" bindchange="incomeChanged">
+          <radio value="income" checked="{{formData.income}}">
+            <text>收入</text>
+          </radio>
+          <radio value="expend" checked="{{!formData.income}}">
+            <text>支出</text>
+          </radio>
+        </radio-group>
+      </mp-cell>
+      <mp-cell title="产生日期" prop="billDate">
+        <picker mode="date" data-field="date" name="billDate" value="{{formData.billDate}}" bindchange="bindDateChange">
+          <view style="text-align:right" class="weui-input">{{formData.billDate}}</view>
+        </picker>
+      </mp-cell>
+      <mp-cell prop="number" title="产生金额">
+        <input bindinput="formInputChange" id="number" bindfocus="numberBindFocus" bindblur="numberBindblur" focus="{{numberFocus}}" value="{{formData.number}}" data-field="number" slot="footer" type="digit" placeholder="不分正负" />
+      </mp-cell>
+      <mp-cell prop="remarks" title="备注">
+        <input bindinput="formInputChange" value="{{formData.remarks}}" data-field="remarks" slot="footer" placeholder="请输入备注" />
+      </mp-cell>
+    </mp-cells>
+  </mp-form>
+  <view class="weui-btn-area">
+    <block wx:if="{{billid}}">
+      <button class="weui-btn primary-btn" bindtap="submitForm">确定修改</button>
+      <button class="weui-btn" type="warn" bindtap="deleteBill">删除</button>
+    </block>
+    <block wx:else>
+      <button class="weui-btn primary-btn" bindtap="submitForm">确定</button>
+      <button class="weui-btn primary-btn-1" bindtap="addNextOne">再记一笔</button>
+    </block>
+  </view>
 </view>
