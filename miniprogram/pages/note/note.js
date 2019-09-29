@@ -1,4 +1,5 @@
 // miniprogram/pages/note/note.js
+import BillApi from "../../api/bills.api.js"
 const app = new getApp();
 Page({
 
@@ -11,14 +12,37 @@ Page({
       income: 0,
       expend: 0,
       total: 0
+    },
+    slideButtons: [{
+      text: '改',
+      extClass: 'mr-slide-btn',
+      src: '/images/icons/Pencil.svg', // icon的路径
+      data: 'detail'
+    }, {
+      type: 'warn',
+      text: '警示',
+      extClass: 'mr-slide-btn',
+      src: '/images/icons/Delete.svg', // icon的路径
+      data: 'delete'
+    }],
+  },
+
+  slideButtonTap(e) {
+    switch(e.detail.data){
+      case 'detail':
+        this.onBillTab(e);
+        break
+      case 'delete':
+        BillApi.deleteBill(e.currentTarget.dataset.bill._id).then(()=>this.refreshData());
+        break
     }
   },
 
-  onBillTab(e){
+  onBillTab(e) {
     const bill = e.currentTarget.dataset.bill;
     wx.navigateTo({
       url: '../addNote/addNote',
-      success: function (res) {
+      success: function(res) {
         res.eventChannel.emit('bill', bill)
       }
     })
@@ -69,24 +93,21 @@ Page({
       .match({
         billDate: _.lt(end_date)
       })
-      // .match(
-      //   $.and([{
-      //       income: income
-      //     },
-      //     {
-      //       billDate: {
-      //         $gte: start_date,
-      //         $lt: end_date
-      //       }
-      //     }
-      //   ])
-      // )
       .group({
         _id: null,
         number: $.sum('$number')
       })
       .end().then(res => {
-        if(!res.list.length) {
+        if (!res.list.length) {
+          if (income) {
+            this.setData({
+              'totalData.income': 0
+            })
+          } else {
+            this.setData({
+              'totalData.expend': 0
+            })
+          }
           return console.log('[查询结果]', res);
         }
         if (income) {
@@ -98,7 +119,7 @@ Page({
             'totalData.expend': res.list[0].number
           })
         }
-      }).catch(err=>{
+      }).catch(err => {
         console.error('[查询统计数据错误]', err)
       })
   },
@@ -120,7 +141,7 @@ Page({
         result.forEach(t => {
           let _bills = bills.find(n => n.date === t.billDate);
           if (_bills) {
-            if(t.income) {
+            if (t.income) {
               _bills.income = _bills.income + Number(t.number)
             } else {
               _bills.expend = _bills.expend + Number(t.number)
@@ -171,10 +192,7 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
+  refreshData(){
     if (app.globalData.userInfo.openid) {
       this.onQueryBills();
     } else {
@@ -182,6 +200,13 @@ Page({
     }
     this.onQueryTotal();
     this.onQueryTotal(true)
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+   this.refreshData();
   },
 
 

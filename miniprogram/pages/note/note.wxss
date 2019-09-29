@@ -82,13 +82,6 @@ view, text {
   margin-left: 20rpx;
 }
 
-.month-list {
-  flex-grow: 1;
-  flex-shrink: 1;
-  overflow: scroll;
-  padding-top: 40rpx;
-}
-
 .daily-total {
   display: flex;
   justify-content: space-between;
@@ -120,17 +113,20 @@ view, text {
 
 .note-list-item {
   padding: 40rpx 40rpx 40rpx 0;
+}
+
+.weui-slideview {
   border-bottom: 1rpx solid #f1f2f6;
+}
+
+.last-no-border:last-child .weui-slideview {
+  border-bottom: none;
 }
 
 .note-list-item image {
   width: 80rpx;
   height: 80rpx;
   margin-right: 40rpx;
-}
-
-.note-list-item:last-child {
-  border-bottom: none;
 }
 
 .note-list-item .type-name {
@@ -158,6 +154,7 @@ view, text {
   position: fixed;
   display: block;
   bottom: 30rpx;
+  z-index: 99;
   right: 30rpx;
   background-color: #57606f;
   color: white;
@@ -183,4 +180,17 @@ view, text {
   margin-top: 50rpx;
   width: 340rpx;
   height: 340rpx;
+}
+
+.daily-total .small-text {
+  font-size: 24rpx;
+  margin-right: 16rpx;
+  opacity: 0.6;
+}
+
+.mr-slide-btn {
+  background-color: #f1f2f6!important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
