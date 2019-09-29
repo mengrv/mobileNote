@@ -21,9 +21,9 @@
       </view>
     </view>
   </view>
-  <view>
+  <!-- <view>
     其他操作
-  </view>
+  </view> -->
   <block wx:if="{{bills.length}}">
     <view class="note-list" wx:for="{{bills}}" wx:key="index" wx:for-item="billList">
       <view class="daily-total">

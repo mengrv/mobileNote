@@ -154,6 +154,7 @@ view, text {
   position: fixed;
   display: block;
   bottom: 30rpx;
+  z-index: 99;
   right: 30rpx;
   background-color: #57606f;
   color: white;
