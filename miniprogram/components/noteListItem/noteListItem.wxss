@@ -1,0 +1,31 @@
+/* components/noteListItem/noteListItem.wxss */
+@import "../../style/flex.wxss";
+.note-list-item {
+  padding: 40rpx 40rpx 40rpx 0;
+}
+.note-list-item image {
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 40rpx;
+}
+
+.note-list-item .type-name {
+  font-size: 36rpx;
+  color: #222831;
+}
+
+.note-list-item .remark {
+  color: #57606f;
+  font-size: 28rpx;
+  margin-top: 16rpx;
+  height: 28rpx;
+}
+
+.note-list-item .num {
+  color: #1e90ff;
+  font-size: 32rpx;
+}
+
+.note-list-item .num.income {
+  color: #ff4757;
+}

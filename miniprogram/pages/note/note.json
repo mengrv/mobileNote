@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "mp-slideview": "../../weui-miniprogram/slideview/slideview"
+    "mp-slideview": "../../weui-miniprogram/slideview/slideview",
+    "note-list-item": "../../components/noteListItem/noteListItem"
   }
 }

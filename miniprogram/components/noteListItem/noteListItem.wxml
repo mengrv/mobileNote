@@ -1,0 +1,11 @@
+<!--components/noteListItem/noteListItem.wxml-->
+<view bindtap="onBillTab" class="note-list-item flex main-between cross-center">
+    <view class="flex cross-center">
+        <image src="../../images/billTypes/{{note.icon||'13'}}.svg"></image>
+        <view class="flex dir-column">
+            <text class="type-name">{{note.typeName}}</text>
+            <text class="remark">{{note.remarks||note.typeName}}</text>
+        </view>
+    </view>
+    <text class="num {{note.income?'income':''}}">{{note.number}}</text>
+</view>

@@ -1,62 +1,53 @@
 <!--miniprogram/pages/note/note.wxml-->
 <scroll-view scroll-y scroll-anchoring class="flex-item-1" style="overflow: scroll">
-  <view class="banner-view">
-    <image class="banner-bg" mode="aspectFill" src="cloud://test-266191.7465-test-266191-1257951538/images/banner-bg.png">
-    </image>
-    <view class="banner">
-      <text class="title">当月账单</text>
-      <view class="total">
-        <text>净收入</text>
-        <text class="ml-20 num {{totalData.income>=totalData.expend?'income':'expend'}}">{{totalData.income-totalData.expend}}</text>
-      </view>
-      <view class="count">
-        <view class="flex cross-center flex-item-1">
-          <text>支出</text>
-          <text class="ml-20 num expend">{{totalData.expend}}</text>
+    <view class="banner-view">
+        <image class="banner-bg" mode="aspectFill" src="cloud://test-266191.7465-test-266191-1257951538/images/banner-bg.png">
+        </image>
+        <view class="banner">
+            <text class="title">当月账单</text>
+            <view class="total">
+                <text>净收入</text>
+                <text class="ml-20 num {{totalData.income>=totalData.expend?'income':'expend'}}">{{totalData.income-totalData.expend}}</text>
+            </view>
+            <view class="count">
+                <view class="flex cross-center flex-item-1">
+                    <text>支出</text>
+                    <text class="ml-20 num expend">{{totalData.expend}}</text>
+                </view>
+                <view class="flex cross-center flex-item-1 main-end">
+                    <text>收入</text>
+                    <text class="ml-20 num income">{{totalData.income}}</text>
+                </view>
+            </view>
         </view>
-        <view class="flex cross-center flex-item-1 main-end">
-          <text>收入</text>
-          <text class="ml-20 num income">{{totalData.income}}</text>
-        </view>
-      </view>
     </view>
-  </view>
-  <!-- <view>
+    <!-- <view>
     其他操作
   </view> -->
-  <block wx:if="{{bills.length}}">
-    <view class="note-list" wx:for="{{bills}}" wx:key="index" wx:for-item="billList">
-      <view class="daily-total">
-        <text class="flex-item-1">{{billList.dateString}}</text>
-        <text class="small-text income">{{billList.income}}</text>
-        <text class="small-text expend">{{billList.expend}}</text>
-        <text wx:if="{{billList.income>=billList.expend}}" class="income ml-20">{{billList.income-billList.expend}}</text>
-        <text wx:else class="expend ml-20">{{billList.expend-billList.income}}</text>
-      </view>
-      <block wx:for="{{billList.list}}" wx:for-item="bill" wx:key="_id">
-        <mp-slideview data-bill="{{bill}}" class="last-no-border" buttons="{{slideButtons}}" icon bindbuttontap="slideButtonTap">
-          <view data-bill="{{bill}}" bindtap="onBillTab" class="note-list-item flex main-between cross-center">
-            <view class="flex cross-center">
-              <image src="../../images/billTypes/{{bill.icon||'13'}}.svg"></image>
-              <view class="flex dir-column">
-                <text class="type-name">{{bill.typeName}}</text>
-                <text class="remark">{{bill.remarks||bill.typeName}}</text>
-              </view>
+    <block wx:if="{{bills.length}}">
+        <view class="note-list" wx:for="{{bills}}" wx:key="index" wx:for-item="billList">
+            <view class="daily-total">
+                <text class="flex-item-1">{{billList.dateString}}</text>
+                <text class="small-text income">{{billList.income}}</text>
+                <text class="small-text expend">{{billList.expend}}</text>
+                <text wx:if="{{billList.income>=billList.expend}}" class="income ml-20">{{billList.income-billList.expend}}</text>
+                <text wx:else class="expend ml-20">{{billList.expend-billList.income}}</text>
             </view>
-            <text class="num {{bill.income?'income':''}}">{{bill.number}}</text>
-          </view>
-        </mp-slideview>
-      </block>
+            <block wx:for="{{billList.list}}" wx:for-item="bill" wx:key="_id">
+                <mp-slideview data-bill="{{bill}}" class="last-no-border" buttons="{{slideButtons}}" icon bindbuttontap="slideButtonTap">
+                    <note-list-item note="{{bill}}" bindTab="onBillTab"></note-list-item>
+                </mp-slideview>
+            </block>
+        </view>
+    </block>
+    <view wx:else class="flex dir-column cross-center null-data">
+        <image src="../../images/list-null.svg"></image>
+        <navigator hover-class="none" url="../addNote/addNote">
+            <button class="primary-btn-1">立即添加</button>
+        </navigator>
     </view>
-  </block>
-  <view wx:else class="flex dir-column cross-center null-data">
-    <image src="../../images/list-null.svg"></image>
-    <navigator hover-class="none" url="../addNote/addNote">
-      <button class="primary-btn-1">立即添加</button>
-    </navigator>
-  </view>
 </scroll-view>
 <view class="footer">聚沙成塔</view>
 <view class="add">
-  <navigator hover-class="none" url="../addNote/addNote">＋</navigator>
+    <navigator hover-class="none" url="../addNote/addNote">＋</navigator>
 </view>
